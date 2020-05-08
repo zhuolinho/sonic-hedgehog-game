@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 
 import SpriteState from './SpriteState'
 import {LEVEL_COUNT} from '../constants/constants'
+import celerx from '../celerx'
 
 export default class PlayState extends SpriteState {
   init (data) {
@@ -36,7 +37,10 @@ export default class PlayState extends SpriteState {
     this.game.add.image(0, 0, 'background')
     this.loadLevel(this.game.cache.getJSON(`level:${this.level}`))
     // Start time
-    this.game.time.events.loop(Phaser.Timer.SECOND, this.updateTime, this)
+    celerx.ready()
+    celerx.onStart(() => {
+      this.game.time.events.loop(Phaser.Timer.SECOND, this.updateTime, this)
+    })
     // create UI score boards
     this.createHud()
   }
