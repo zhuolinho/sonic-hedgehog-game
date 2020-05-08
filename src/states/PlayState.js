@@ -132,9 +132,7 @@ export default class PlayState extends SpriteState {
       hero.die()
       this.sfx.dead.play()
       hero.events.onKilled.addOnce(() => {
-        this.game.state.restart(true, false, {
-          level: this.level
-        })
+        celerx.submitScore(this.score)
       })
     } else if (hero.invincible) {
 
