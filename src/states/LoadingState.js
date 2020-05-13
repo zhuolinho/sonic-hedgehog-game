@@ -23,6 +23,8 @@ export default class LoadingState {
     this.game.load.image('spike', '../../assets/images/spike1.png')
     this.game.load.image('spike3', '../../assets/images/spike3.png')
     this.game.load.image('fireball', '../../assets/images/fireball.png', 15, 32)
+    this.game.load.image('btn-arrow', '../../assets/images/btn_arrow.png')
+    this.game.load.image('btn-up', '../../assets/images/btn_up.png')
     // animations
     this.game.load.spritesheet('hero', '../../assets/images/hero.png', 32, 42)
     this.game.load.spritesheet('bug', '../../assets/images/bug.png', 40, 30)

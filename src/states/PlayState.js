@@ -43,6 +43,12 @@ export default class PlayState extends SpriteState {
     })
     // create UI score boards
     this.createHud()
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+    this.game.add.button(40, 480, 'btn-up').anchor.set(0.5, 0.5)
+    this.game.add.button(840, 480, 'btn-arrow').anchor.set(0.5, 0.5)
+    var button = this.game.add.button(920, 480, 'btn-arrow')
+    button.anchor.set(0.5, 0.5)
+    button.angle = 180
   }
 
   updateTime () {
