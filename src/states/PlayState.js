@@ -44,11 +44,31 @@ export default class PlayState extends SpriteState {
     // create UI score boards
     this.createHud()
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
-    this.game.add.button(40, 480, 'btn-up').anchor.set(0.5, 0.5)
-    this.game.add.button(840, 480, 'btn-arrow').anchor.set(0.5, 0.5)
-    var button = this.game.add.button(920, 480, 'btn-arrow')
-    button.anchor.set(0.5, 0.5)
-    button.angle = 180
+    var upBtn = this.game.add.sprite(40, 480, 'btn-up')
+    upBtn.anchor.set(0.5, 0.5)
+    upBtn.inputEnabled = true
+    upBtn.events.onInputDown.add(function () {
+      this.up = true
+    }, this)
+    var leftBtn = this.game.add.sprite(840, 480, 'btn-arrow')
+    leftBtn.anchor.set(0.5, 0.5)
+    leftBtn.inputEnabled = true
+    leftBtn.events.onInputDown.add(function () {
+      this.left = true
+    }, this)
+    leftBtn.events.onInputUp.add(function () {
+      this.left = false
+    }, this)
+    var rightBtn = this.game.add.sprite(920, 480, 'btn-arrow')
+    rightBtn.anchor.set(0.5, 0.5)
+    rightBtn.angle = 180
+    rightBtn.inputEnabled = true
+    rightBtn.events.onInputDown.add(function () {
+      this.right = true
+    }, this)
+    rightBtn.events.onInputUp.add(function () {
+      this.right = false
+    }, this)
   }
 
   updateTime () {
@@ -113,15 +133,16 @@ export default class PlayState extends SpriteState {
   }
 
   handleInput () {
-    if (this.keys.left.isDown) { // move hero left
+    if (this.left) { // move hero left
       this.hero.move(-1)
-    } else if (this.keys.right.isDown) { // move hero right
+    } else if (this.right) { // move hero right
       this.hero.move(1)
     } else { // stop
       this.hero.move(0)
     }
     // handle jump
-    if (this.keys.up.downDuration(200)) {
+    if (this.up) {
+      this.up = false
       let didJump = this.hero.jump()
       didJump ? this.sfx.jump.play() : this.hero.stopJumpBoost()
     }
